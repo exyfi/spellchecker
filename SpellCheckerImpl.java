@@ -184,5 +184,4 @@ public class SpellCheckerImpl implements SpellChecker {
             suggested.add(modified);
         }
     }
-
 }

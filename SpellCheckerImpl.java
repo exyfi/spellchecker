@@ -177,7 +177,8 @@ public class SpellCheckerImpl implements SpellChecker {
 
         System.out.println("List of suggested words: " + suggested);
     }
-
+    
+    
     private void addToList(String modified) {
         if ((dictionary.containsKey(modified)) && (!suggested.contains(modified))) {
 

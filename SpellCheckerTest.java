@@ -1,4 +1,4 @@
-package ru.ifmo.rain.bolotov.spellchecker;
+package spellchecker;
 
 
 import java.io.BufferedReader;
@@ -35,7 +35,7 @@ public class SpellCheckerTest implements Runnable {
 
 
         String word = nextToken().toLowerCase();
-        SpellChecker dictionary = new SpellCheckerImpl("/Users/daniilbolotov/Desktop/java-advanced-2019/java/ru/ifmo/rain/bolotov/spellchecker/eng.txt", "EN");
+        SpellChecker dictionary = new SpellCheckerImpl("eng.txt", "EN");
 
         if (dictionary.checkWord(word)) {
             out.println("Word is correct: " + word);

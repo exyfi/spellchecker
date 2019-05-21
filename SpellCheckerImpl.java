@@ -1,4 +1,4 @@
-package ru.ifmo.rain.bolotov.spellchecker;
+package spellchecker;
 
 import java.io.BufferedReader;
 import java.util.HashMap;

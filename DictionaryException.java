@@ -1,4 +1,4 @@
-package ru.ifmo.rain.bolotov.spellchecker;
+package spellchecker;
 
 public class DictionaryException extends Exception {
     DictionaryException(final String message){

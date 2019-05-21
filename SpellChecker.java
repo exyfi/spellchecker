@@ -1,4 +1,4 @@
-package ru.ifmo.rain.bolotov.spellchecker;
+package spellchecker;
 
 /**
  * @author Daniil Bolotov
@@ -20,7 +20,4 @@ public interface SpellChecker {
      * after search returns List with suggested words
      */
     void suggestWords(String word);
-
-
-
 }

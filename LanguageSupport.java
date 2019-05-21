@@ -1,4 +1,4 @@
-package ru.ifmo.rain.bolotov.spellchecker;
+package spellchecker;
 
 public class LanguageSupport {
     private  static final String RUSSIAN="абвгдежзийклмнопрстуфхцчшщъыьэюя";

@@ -29,7 +29,7 @@ public class SpellCheckerTest implements Runnable {
     /*I'm presenting default realization
       In next version I'm going to create reading from console arguments to read path to Dictionary and read language type
      */
-    public void solve() throws IOException {
+    public void execute() throws IOException {
         //TODO : create reading from console arguments to read path to Dictionary and read language
         // String path=nextToken().toLowerCase();
 
@@ -50,7 +50,7 @@ public class SpellCheckerTest implements Runnable {
             br = new BufferedReader(new InputStreamReader(System.in));
             out = new PrintWriter(System.out);
 
-            solve();
+            execute();
 
             out.close();
         } catch (IOException e) {

@@ -1,6 +1,7 @@
 package spellchecker;
 
 public class LanguageSupport {
+    
     private  static final String RUSSIAN="абвгдежзийклмнопрстуфхцчшщъыьэюя";
     private  static final String ENGLISH="abcdefghijklmnopqrstuvwxyz";
 

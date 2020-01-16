@@ -1,9 +1,13 @@
-package spellchecker;
+package org.exyfi.spellchecker.implementation;
+
+import org.exyfi.spellchecker.util.LanguageSupport;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.*;
-import java.io.*;
+import java.util.List;
 
 /**
  * @author daniilbolotov
@@ -22,29 +26,25 @@ public class SpellCheckerImpl implements SpellChecker {
 
     private HashMap dictionary;
     private List<String> suggested;
-    private BufferedReader in;
     private final String alpha;
-    private final char[] alphabet;
-    //TODO : create some constructors which can create dictionaries from given URL
-    //defualt realization
+
+    private static char[] alphabet;
+
     SpellCheckerImpl(String path, String language) throws IOException {
         alpha = LanguageSupport.getLang(language);
-
         alphabet = alpha.toCharArray();
-
         dictionary = new HashMap();
-        in = new BufferedReader(new FileReader(path));
-        uploadDictionary();
+
+        uploadDictionary(path);
+
         checkDictionary();
     }
-
 
     public SpellCheckerImpl(HashMap dictionary, String language) {
         alpha = LanguageSupport.getLang(language);
         alphabet = alpha.toCharArray();
 
         this.dictionary = dictionary;
-
     }
 
     @SuppressWarnings("unchecked")
@@ -60,11 +60,9 @@ public class SpellCheckerImpl implements SpellChecker {
         }
     }
 
-
     @SuppressWarnings("unchecked")
-    private void uploadDictionary() throws IOException {
-
-        try {
+    private void uploadDictionary(String path) {
+        try (BufferedReader in = new BufferedReader(new FileReader(path))) {
             String line;
             line = in.readLine();
             while ((line) != null) {
@@ -72,74 +70,55 @@ public class SpellCheckerImpl implements SpellChecker {
                 dictionary.put(word, null);
                 line = in.readLine();
             }
-
-
         } catch (IOException e) {
-            System.out.println("Your path to dictionary is incorrect");
+            System.out.println("Exception has occurred during reading ");
+            e.printStackTrace();
         }
-
     }
 
     @Override
     public boolean checkWord(String word) {
-
         return dictionary.containsKey(word);
     }
 
-    //ALGORITHM
     @Override
     public void suggestWords(String word) {
-
         suggested = new ArrayList<String>();
-
-
         StringBuilder builder;
-
         for (int i = 0; i < word.length(); i++) {
-
             if (!checkWord(word)) {
                 builder = new StringBuilder(word);
 
                 StringBuilder modification = builder.deleteCharAt(i);
                 String modified = modification.toString();
-
                 addToList(modified);
-
             }
         }
-
         for (int i = 0; i < word.length(); i++) {
-            for (int j = 0; j < alphabet.length; j++) {
-
+            for (char c : alphabet) {
                 if (!checkWord(word)) {
                     builder = new StringBuilder(word);
 
                     StringBuilder tempWord = builder.deleteCharAt(i);
-                    StringBuilder inserModWord = builder.insert(i, alphabet[j]);
                     String modified = tempWord.toString();
 
                     addToList(modified);
-
                 }
             }
         }
 
-
         for (int i = 0; i < word.length() + 1; i++) {
-            for (int j = 0; j < alphabet.length; j++) {
+            for (char c : alphabet) {
                 if (!checkWord(word)) {
                     builder = new StringBuilder(word);
 
-                    StringBuilder iModifiedWord = builder.insert(i, alphabet[j]);
+                    StringBuilder iModifiedWord = builder.insert(i, c);
                     String modified = iModifiedWord.toString();
 
                     addToList(modified);
-
-
                 }
             }
         }
-
 
         for (int i = 0; i < word.length() - 1; i++) {
             if (!checkWord(word)) {
@@ -151,37 +130,30 @@ public class SpellCheckerImpl implements SpellChecker {
                 String modified = builder.toString();
 
                 addToList(modified);
-
             }
         }
-
 
         String combined = "";
         for (int i = 0; i < word.length() - 1; i++) {
             if (!checkWord(word)) {
                 String sLeft = word.substring(0, i);
-                String sRight = word.substring(i, word.length());
+                String sRight = word.substring(i);
                 if ((dictionary.containsKey(sLeft)) && (dictionary.containsKey(sRight))) {
                     combined = sLeft + " " + sRight;
 
                     if (!suggested.contains(combined)) {
                         suggested.add(combined);
-
-
                         checkWord(word);
                     }
                 }
             }
         }
 
-
         System.out.println("List of suggested words: " + suggested);
     }
-    
-    
+
     private void addToList(String modified) {
         if ((dictionary.containsKey(modified)) && (!suggested.contains(modified))) {
-
             suggested.add(modified);
         }
     }

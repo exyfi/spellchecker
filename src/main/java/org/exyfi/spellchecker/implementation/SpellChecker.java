@@ -1,4 +1,4 @@
-package spellchecker;
+package org.exyfi.spellchecker.implementation;
 
 /**
  * @author Daniil Bolotov

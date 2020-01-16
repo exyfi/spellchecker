@@ -1,4 +1,4 @@
-package spellchecker;
+package org.exyfi.spellchecker.util;
 
 public class LanguageSupport {
     

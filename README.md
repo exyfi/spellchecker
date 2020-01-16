@@ -1,4 +1,4 @@
-# SpellChecker for JetBrains Internship
+# org.exyfi.spellchecker.implementation.SpellChecker for JetBrains Internship
   
   ```
   
